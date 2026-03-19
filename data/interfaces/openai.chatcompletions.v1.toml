@@ -1,0 +1,18 @@
+id = "openai.chatcompletions.v1"
+family = "openai.chatcompletions"
+version = "v1"
+description = "OpenAI Chat Completions API surface"
+
+[canonical_mappings]
+"limits.max_output_tokens" = "max_tokens"
+"sampling.temperature" = "temperature"
+"sampling.top_p" = "top_p"
+"sampling.frequency_penalty" = "frequency_penalty"
+"sampling.presence_penalty" = "presence_penalty"
+"limits.stop_sequences" = "stop"
+"tools.parallel_calls" = "parallel_tool_calls"
+
+[[sources]]
+label = "OpenAI Chat Completions API"
+url = "https://platform.openai.com/docs/api-reference/chat"
+retrieved_at = "2026-03-06"

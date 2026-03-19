@@ -1,0 +1,5 @@
+id = "output.response_format"
+name = "Response Format"
+description = "Specify output format constraints"
+type = "object"
+category = "output"

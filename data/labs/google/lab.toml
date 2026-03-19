@@ -1,0 +1,7 @@
+id = "google"
+display_name = "Google"
+
+[[sources]]
+label = "Google Gemini models docs"
+url = "https://ai.google.dev/gemini-api/docs/models"
+retrieved_at = 2026-03-18

@@ -1,0 +1,99 @@
+{{define "models"}}
+<div>
+    <!-- Search bar -->
+    <div class="mb-4 flex items-center gap-3">
+        <input
+            type="text"
+            name="q"
+            placeholder="search models..."
+            class="w-full rounded-sm border border-input bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
+            hx-get="/search"
+            hx-trigger="input changed delay:200ms, search"
+            hx-target="#model-list"
+            hx-swap="innerHTML"
+            hx-include="[name='provider'], [name='capability']"
+        />
+    </div>
+
+    <!-- Filters row -->
+    <div class="mb-4 flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-muted-foreground">filter:</span>
+
+        <!-- Provider filter -->
+        <select name="provider"
+                class="rounded-sm border border-input bg-secondary px-2 py-1 text-xs text-secondary-foreground"
+                hx-get="/search"
+                hx-trigger="change"
+                hx-target="#model-list"
+                hx-swap="innerHTML"
+                hx-include="[name='q'], [name='capability']">
+            <option value="">all providers</option>
+            {{range .Providers}}
+            <option value="{{.ID}}">{{.DisplayName}}</option>
+            {{end}}
+        </select>
+
+        <!-- Capability filter -->
+        <select name="capability"
+                class="rounded-sm border border-input bg-secondary px-2 py-1 text-xs text-secondary-foreground"
+                hx-get="/search"
+                hx-trigger="change"
+                hx-target="#model-list"
+                hx-swap="innerHTML"
+                hx-include="[name='q'], [name='provider']">
+            <option value="">all capabilities</option>
+            {{range .Capabilities}}
+            <option value="{{.ID}}">{{.Name}}</option>
+            {{end}}
+        </select>
+
+        <span class="text-muted-foreground/50">{{len .ProviderModels}} models</span>
+    </div>
+
+    <!-- Model list -->
+    <div id="model-list">
+        {{template "modelList" .}}
+    </div>
+</div>
+{{end}}
+
+{{define "modelList"}}
+<div class="space-y-1">
+    <!-- Table header -->
+    <div class="grid grid-cols-12 gap-2 border-b border-border px-2 py-1 text-xs text-muted-foreground font-semibold">
+        <div class="col-span-4">model</div>
+        <div class="col-span-2">provider</div>
+        <div class="col-span-2 text-right">context</div>
+        <div class="col-span-2 text-right">input $/M</div>
+        <div class="col-span-2 text-right">output $/M</div>
+    </div>
+
+    {{range .ProviderModels}}
+    <a href="/models/{{providerFromID .ID}}/{{modelFromID .ID}}"
+       class="grid grid-cols-12 gap-2 rounded-sm px-2 py-2 text-xs hover:bg-muted transition-colors items-center">
+        <div class="col-span-4">
+            <span class="model-title font-semibold text-foreground">{{.DisplayName}}</span>
+            <div class="mt-0.5 flex gap-1">
+                {{if hasCapability . "reasoning"}}<span class="text-primary/70">reason</span>{{end}}
+                {{if hasCapability . "tool-calling"}}<span class="text-muted-foreground/60">tools</span>{{end}}
+                {{if hasCapability . "image-input"}}<span class="text-muted-foreground/60">vision</span>{{end}}
+            </div>
+        </div>
+        <div class="col-span-2 text-muted-foreground">{{providerFromID .ID}}</div>
+        <div class="col-span-2 text-right text-muted-foreground">
+            {{if .Limits}}{{formatTokens .Limits.ContextWindow}}{{else}}-{{end}}
+        </div>
+        <div class="col-span-2 text-right text-muted-foreground">
+            {{if .Pricing}}{{formatPrice .Pricing.InputPerMillion}}{{else}}-{{end}}
+        </div>
+        <div class="col-span-2 text-right text-muted-foreground">
+            {{if .Pricing}}{{formatPrice .Pricing.OutputPerMillion}}{{else}}-{{end}}
+        </div>
+    </a>
+    {{end}}
+
+    {{if not .ProviderModels}}
+    <div class="py-8 text-center text-sm text-muted-foreground">no models found</div>
+    {{end}}
+</div>
+{{end}}

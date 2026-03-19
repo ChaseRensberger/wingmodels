@@ -1,0 +1,44 @@
+id = "google/gemini-1.5-pro"
+display_name = "Gemini 1.5 Pro via Google"
+interface_profiles = ["google.gemini.v1"]
+supported_parameters = ["sampling.temperature", "sampling.top_p", "limits.max_output_tokens"]
+
+[[capabilities]]
+id = "text-input"
+
+[[capabilities]]
+id = "text-output"
+
+[[capabilities]]
+id = "image-input"
+
+[[capabilities]]
+id = "audio-input"
+
+[[capabilities]]
+id = "video-input"
+
+[[capabilities]]
+id = "tool-calling"
+version = "v1"
+
+[capabilities.details]
+style = "google"
+
+[limits]
+context_window = 1000000
+max_output_tokens = 8192
+
+[pricing]
+input_per_million = 1.25
+output_per_million = 5.00
+cache_read_per_million = 0.3125
+
+[modalities]
+input = ["text", "image", "audio", "video"]
+output = ["text"]
+
+[[sources]]
+label = "Google Gemini model docs"
+url = "https://ai.google.dev/gemini-api/docs/models#gemini-1.5-pro"
+retrieved_at = 2026-03-18

@@ -1,0 +1,42 @@
+id = "anthropic/claude-sonnet-3.5"
+display_name = "Claude 3.5 Sonnet via Anthropic"
+interface_profiles = ["anthropic.messages.v1"]
+supported_parameters = ["sampling.temperature", "sampling.top_p", "limits.max_output_tokens"]
+
+[[capabilities]]
+id = "text-input"
+
+[[capabilities]]
+id = "text-output"
+
+[[capabilities]]
+id = "image-input"
+
+[[capabilities]]
+id = "pdf-input"
+
+[[capabilities]]
+id = "tool-calling"
+version = "v1"
+
+[capabilities.details]
+style = "anthropic"
+
+[limits]
+context_window = 200000
+max_output_tokens = 8192
+
+[pricing]
+input_per_million = 3.00
+output_per_million = 15.00
+cache_read_per_million = 0.30
+cache_write_per_million = 3.75
+
+[modalities]
+input = ["text", "image", "pdf"]
+output = ["text"]
+
+[[sources]]
+label = "Anthropic model docs"
+url = "https://docs.anthropic.com/en/docs/about-claude/models"
+retrieved_at = 2026-03-18

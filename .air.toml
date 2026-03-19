@@ -1,0 +1,12 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/wingmodels ./cmd/wingmodels"
+  bin = "./tmp/wingmodels serve"
+  include_ext = ["go", "html", "css", "toml"]
+  exclude_dir = ["tmp", "node_modules", "build", ".git"]
+  delay = 1000
+
+[screen]
+  clear_on_rebuild = true

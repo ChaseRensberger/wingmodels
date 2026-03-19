@@ -1,0 +1,11 @@
+id = "anthropic"
+display_name = "Anthropic"
+base_urls = ["https://api.anthropic.com"]
+
+[auth]
+env_vars = ["ANTHROPIC_API_KEY"]
+
+[[sources]]
+label = "Anthropic API docs"
+url = "https://docs.anthropic.com/en/docs/about-claude/models"
+retrieved_at = 2026-03-18

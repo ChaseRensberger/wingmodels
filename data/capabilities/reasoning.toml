@@ -1,0 +1,4 @@
+id = "reasoning"
+name = "Reasoning"
+description = "Supports extended chain-of-thought reasoning"
+category = "inference"

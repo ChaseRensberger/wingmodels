@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wingmodels.dev/schemas/lab_model.json",
+  "title": "Lab Model",
+  "description": "Represents a creator-owned model identity independent of where it is served.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "lab_id": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "release_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"
+    },
+    "knowledge_cutoff": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"
+    },
+    "modalities": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "pdf"]
+          }
+        },
+        "output": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "pdf"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "open_weights": {
+      "type": "boolean"
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "required": ["id", "lab_id", "display_name"],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string" }
+      },
+      "required": ["label", "url"],
+      "additionalProperties": false
+    }
+  }
+}

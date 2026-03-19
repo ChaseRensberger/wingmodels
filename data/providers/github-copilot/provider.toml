@@ -1,0 +1,11 @@
+id = "github-copilot"
+display_name = "GitHub Copilot"
+base_urls = ["https://models.github.ai/inference"]
+
+[auth]
+env_vars = ["GITHUB_TOKEN"]
+
+[[sources]]
+label = "GitHub Copilot docs"
+url = "https://docs.github.com/en/copilot"
+retrieved_at = 2026-03-18

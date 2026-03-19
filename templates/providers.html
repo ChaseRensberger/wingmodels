@@ -1,0 +1,18 @@
+{{define "providers"}}
+<div>
+    <h1 class="model-title text-lg font-bold text-foreground mb-4">Providers</h1>
+    <div class="space-y-1">
+        {{range .Providers}}
+        <a href="/providers/{{.Provider.ID}}" class="flex items-center justify-between rounded-sm px-3 py-3 hover:bg-muted transition-colors border-b border-border">
+            <div>
+                <div class="model-title font-semibold text-foreground text-sm">{{.Provider.DisplayName}}</div>
+                <div class="text-xs text-muted-foreground mt-0.5">{{.Provider.ID}} · {{.ModelCount}} models</div>
+            </div>
+            <div class="text-xs text-muted-foreground">
+                {{if .Provider.BaseURLs}}{{index .Provider.BaseURLs 0}}{{end}}
+            </div>
+        </a>
+        {{end}}
+    </div>
+</div>
+{{end}}

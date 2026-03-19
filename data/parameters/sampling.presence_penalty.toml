@@ -1,0 +1,5 @@
+id = "sampling.presence_penalty"
+name = "Presence Penalty"
+description = "Penalizes token presence"
+type = "number"
+category = "sampling"

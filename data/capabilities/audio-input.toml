@@ -1,0 +1,4 @@
+id = "audio-input"
+name = "Audio Input"
+description = "Accepts audio as input"
+category = "modality"

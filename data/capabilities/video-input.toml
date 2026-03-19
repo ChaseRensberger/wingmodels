@@ -1,0 +1,4 @@
+id = "video-input"
+name = "Video Input"
+description = "Accepts video as input"
+category = "modality"

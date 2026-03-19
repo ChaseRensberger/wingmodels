@@ -1,0 +1,4 @@
+id = "computer-use"
+name = "Computer Use"
+description = "Supports computer use / browser actions"
+category = "tooling"

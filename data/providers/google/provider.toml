@@ -1,0 +1,11 @@
+id = "google"
+display_name = "Google"
+base_urls = ["https://generativelanguage.googleapis.com"]
+
+[auth]
+env_vars = ["GOOGLE_API_KEY"]
+
+[[sources]]
+label = "Google Gemini API docs"
+url = "https://ai.google.dev/gemini-api/docs/models"
+retrieved_at = 2026-03-18

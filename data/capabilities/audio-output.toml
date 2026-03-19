@@ -1,0 +1,4 @@
+id = "audio-output"
+name = "Audio Output"
+description = "Generates audio output"
+category = "modality"

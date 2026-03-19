@@ -1,0 +1,5 @@
+id = "limits.max_output_tokens"
+name = "Max Output Tokens"
+description = "Maximum number of tokens to generate"
+type = "integer"
+category = "limits"

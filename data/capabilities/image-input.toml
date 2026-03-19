@@ -1,0 +1,4 @@
+id = "image-input"
+name = "Image Input"
+description = "Accepts image as input"
+category = "modality"

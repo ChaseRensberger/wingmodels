@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wingmodels.dev/schemas/interface_profile.json",
+  "title": "Interface Profile",
+  "description": "Represents an API dialect or protocol surface.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "canonical_mappings": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "required": ["id", "family", "version"],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string" }
+      },
+      "required": ["label", "url"],
+      "additionalProperties": false
+    }
+  }
+}

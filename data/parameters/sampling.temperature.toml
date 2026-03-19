@@ -1,0 +1,5 @@
+id = "sampling.temperature"
+name = "Temperature"
+description = "Controls randomness in token sampling"
+type = "number"
+category = "sampling"

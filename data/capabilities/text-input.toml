@@ -1,0 +1,4 @@
+id = "text-input"
+name = "Text Input"
+description = "Accepts text as input"
+category = "modality"

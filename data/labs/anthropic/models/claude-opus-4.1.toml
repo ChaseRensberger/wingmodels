@@ -1,0 +1,16 @@
+id = "claude-opus-4.1"
+lab_id = "anthropic"
+display_name = "Claude Opus 4.1"
+family = "claude-opus"
+release_date = 2025-08-05
+knowledge_cutoff = 2025-03
+open_weights = false
+
+[modalities]
+input = ["text", "image", "pdf"]
+output = ["text"]
+
+[[sources]]
+label = "Anthropic model docs"
+url = "https://docs.anthropic.com/en/docs/about-claude/models"
+retrieved_at = 2026-03-18

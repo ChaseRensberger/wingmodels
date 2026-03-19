@@ -1,0 +1,16 @@
+id = "gpt-4.1-mini"
+lab_id = "openai"
+display_name = "GPT-4.1 mini"
+family = "gpt"
+release_date = 2025-04-14
+knowledge_cutoff = 2024-04
+open_weights = false
+
+[modalities]
+input = ["text", "image"]
+output = ["text"]
+
+[[sources]]
+label = "OpenAI model docs"
+url = "https://platform.openai.com/docs/models/gpt-4.1-mini"
+retrieved_at = 2026-03-18

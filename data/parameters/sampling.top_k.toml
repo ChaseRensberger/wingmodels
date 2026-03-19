@@ -1,0 +1,5 @@
+id = "sampling.top_k"
+name = "Top K"
+description = "Controls top-k sampling"
+type = "integer"
+category = "sampling"

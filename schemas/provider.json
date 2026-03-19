@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wingmodels.dev/schemas/provider.json",
+  "title": "Provider",
+  "description": "Represents a serving organization or endpoint family.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "base_urls": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "auth": {
+      "type": "object",
+      "properties": {
+        "env_vars": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "required": ["id", "display_name"],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string" }
+      },
+      "required": ["label", "url"],
+      "additionalProperties": false
+    }
+  }
+}

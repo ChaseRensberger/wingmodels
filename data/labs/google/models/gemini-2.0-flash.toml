@@ -1,0 +1,16 @@
+id = "gemini-2.0-flash"
+lab_id = "google"
+display_name = "Gemini 2.0 Flash"
+family = "gemini-flash"
+release_date = 2024-12-11
+knowledge_cutoff = 2024-06
+open_weights = false
+
+[modalities]
+input = ["text", "image", "audio", "video", "pdf"]
+output = ["text"]
+
+[[sources]]
+label = "Google Gemini model docs"
+url = "https://ai.google.dev/gemini-api/docs/models#gemini-2.0-flash"
+retrieved_at = 2026-03-18

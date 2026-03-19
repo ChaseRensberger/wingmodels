@@ -1,0 +1,4 @@
+id = "structured-output"
+name = "Structured Output"
+description = "Supports structured/schema-constrained output"
+category = "output"

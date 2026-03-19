@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wingmodels.dev/schemas/provider_model.json",
+  "title": "Provider Model",
+  "description": "Represents a provider-specific serving of a lab model.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "interface_profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "version": { "type": "string" },
+          "details": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      }
+    },
+    "supported_parameters": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "context_window": { "type": "number" },
+        "max_output_tokens": { "type": "number" },
+        "max_input_tokens": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "input_per_million": { "type": "number" },
+        "output_per_million": { "type": "number" },
+        "cache_read_per_million": { "type": "number" },
+        "cache_write_per_million": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "modalities": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "pdf"]
+          }
+        },
+        "output": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "pdf"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": ["id", "display_name"],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string" }
+      },
+      "required": ["label", "url"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{{define "providerDetail"}}
+<div>
+    <div class="mb-4 text-xs text-muted-foreground">
+        <a href="/providers" class="hover:text-foreground transition-colors">providers</a>
+        <span class="text-muted-foreground/30"> / </span>
+        <span class="text-foreground">{{.Provider.DisplayName}}</span>
+    </div>
+
+    <h1 class="model-title text-xl font-bold text-foreground mb-1">{{.Provider.DisplayName}}</h1>
+    <div class="text-xs text-muted-foreground mb-6">{{.Provider.ID}}</div>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Provider info -->
+        <div class="space-y-4">
+            {{if .Provider.BaseURLs}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Base URLs</h2>
+                {{range .Provider.BaseURLs}}
+                <div class="text-xs text-foreground break-all">{{.}}</div>
+                {{end}}
+            </div>
+            {{end}}
+
+            {{if .Provider.Auth}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Auth</h2>
+                {{range .Provider.Auth.EnvVars}}
+                <div class="text-xs text-foreground font-mono">{{.}}</div>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+
+        <!-- Models list -->
+        <div class="lg:col-span-2">
+            <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Models ({{len .Models}})</h2>
+            <div class="space-y-1">
+                <div class="grid grid-cols-10 gap-2 border-b border-border px-2 py-1 text-xs text-muted-foreground font-semibold">
+                    <div class="col-span-4">model</div>
+                    <div class="col-span-2 text-right">context</div>
+                    <div class="col-span-2 text-right">input $/M</div>
+                    <div class="col-span-2 text-right">output $/M</div>
+                </div>
+                {{range .Models}}
+                <a href="/models/{{providerFromID .ID}}/{{modelFromID .ID}}"
+                   class="grid grid-cols-10 gap-2 rounded-sm px-2 py-2 text-xs hover:bg-muted transition-colors items-center">
+                    <div class="col-span-4 model-title font-semibold text-foreground">{{.DisplayName}}</div>
+                    <div class="col-span-2 text-right text-muted-foreground">
+                        {{if .Limits}}{{formatTokens .Limits.ContextWindow}}{{else}}-{{end}}
+                    </div>
+                    <div class="col-span-2 text-right text-muted-foreground">
+                        {{if .Pricing}}{{formatPrice .Pricing.InputPerMillion}}{{else}}-{{end}}
+                    </div>
+                    <div class="col-span-2 text-right text-muted-foreground">
+                        {{if .Pricing}}{{formatPrice .Pricing.OutputPerMillion}}{{else}}-{{end}}
+                    </div>
+                </a>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

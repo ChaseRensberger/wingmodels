@@ -1,0 +1,4 @@
+id = "tool-calling"
+name = "Tool Calling"
+description = "Supports invoking external tools during generation"
+category = "tooling"

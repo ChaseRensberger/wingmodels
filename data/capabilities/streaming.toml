@@ -1,0 +1,4 @@
+id = "streaming"
+name = "Streaming"
+description = "Supports streaming token delivery"
+category = "delivery"

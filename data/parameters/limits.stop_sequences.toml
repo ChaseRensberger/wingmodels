@@ -1,0 +1,5 @@
+id = "limits.stop_sequences"
+name = "Stop Sequences"
+description = "Sequences that stop generation"
+type = "array"
+category = "limits"

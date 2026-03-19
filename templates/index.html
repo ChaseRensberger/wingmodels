@@ -1,0 +1,36 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{.Title}} | WingModels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/htmx.org@2.0.7" defer></script>
+    <link rel="stylesheet" href="/output.css" />
+</head>
+<body class="min-h-screen">
+    <header class="border-b border-border bg-card px-4 py-3">
+        <div class="mx-auto flex max-w-6xl items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-sm font-bold text-primary">WingModels</a>
+                <nav class="flex items-center gap-1 text-xs">
+                    <a href="/" class="px-2 py-1 {{if eq .Active "models"}}text-primary font-semibold{{else}}text-muted-foreground hover:text-foreground{{end}} transition-colors">models</a>
+                    <span class="text-muted-foreground/30">|</span>
+                    <a href="/providers" class="px-2 py-1 {{if eq .Active "providers"}}text-primary font-semibold{{else}}text-muted-foreground hover:text-foreground{{end}} transition-colors">providers</a>
+                </nav>
+            </div>
+            <div class="text-xs text-muted-foreground/70">
+                <a href="/v1/snapshot" class="hover:text-foreground transition-colors">api</a>
+            </div>
+        </div>
+    </header>
+    <main class="mx-auto max-w-6xl px-4 py-6">
+        {{.Content}}
+    </main>
+    <footer class="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground/50">
+        powered by <a href="https://github.com/ChaseRensberger/wingmodels" class="hover:text-foreground transition-colors">wingmodels</a>
+    </footer>
+</body>
+</html>
+{{end}}

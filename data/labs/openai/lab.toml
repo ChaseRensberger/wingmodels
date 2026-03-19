@@ -1,0 +1,7 @@
+id = "openai"
+display_name = "OpenAI"
+
+[[sources]]
+label = "OpenAI models docs"
+url = "https://platform.openai.com/docs/models"
+retrieved_at = 2026-03-18

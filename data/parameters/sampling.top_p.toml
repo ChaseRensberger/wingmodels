@@ -1,0 +1,5 @@
+id = "sampling.top_p"
+name = "Top P"
+description = "Controls nucleus sampling threshold"
+type = "number"
+category = "sampling"

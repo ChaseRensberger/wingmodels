@@ -1,0 +1,4 @@
+id = "image-output"
+name = "Image Output"
+description = "Generates images"
+category = "modality"

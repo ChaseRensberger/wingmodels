@@ -1,0 +1,16 @@
+id = "o4-mini"
+lab_id = "openai"
+display_name = "o4-mini"
+family = "o"
+release_date = 2025-04-16
+knowledge_cutoff = 2024-05
+open_weights = false
+
+[modalities]
+input = ["text", "image"]
+output = ["text"]
+
+[[sources]]
+label = "OpenAI model docs"
+url = "https://platform.openai.com/docs/models/o4-mini"
+retrieved_at = 2026-03-18

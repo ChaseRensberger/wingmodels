@@ -1,0 +1,4 @@
+id = "function-calling"
+name = "Function Calling"
+description = "Supports function calling (legacy style)"
+category = "tooling"

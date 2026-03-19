@@ -1,0 +1,4 @@
+id = "text-output"
+name = "Text Output"
+description = "Generates text output"
+category = "modality"

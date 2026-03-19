@@ -1,0 +1,5 @@
+id = "sampling.frequency_penalty"
+name = "Frequency Penalty"
+description = "Penalizes token frequency"
+type = "number"
+category = "sampling"

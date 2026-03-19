@@ -1,0 +1,4 @@
+id = "caching"
+name = "Caching"
+description = "Supports prompt caching for repeated prefixes"
+category = "performance"

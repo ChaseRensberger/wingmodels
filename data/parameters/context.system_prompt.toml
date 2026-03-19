@@ -1,0 +1,5 @@
+id = "context.system_prompt"
+name = "System Prompt"
+description = "System-level prompt instructions"
+type = "string"
+category = "context"

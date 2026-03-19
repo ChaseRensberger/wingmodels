@@ -1,0 +1,4 @@
+id = "pdf-input"
+name = "PDF Input"
+description = "Accepts PDF documents as input"
+category = "modality"

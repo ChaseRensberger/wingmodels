@@ -1,0 +1,16 @@
+id = "gemini-1.5-pro"
+lab_id = "google"
+display_name = "Gemini 1.5 Pro"
+family = "gemini-pro"
+release_date = 2024-02-15
+knowledge_cutoff = 2024-04
+open_weights = false
+
+[modalities]
+input = ["text", "image", "audio", "video"]
+output = ["text"]
+
+[[sources]]
+label = "Google Gemini model docs"
+url = "https://ai.google.dev/gemini-api/docs/models#gemini-1.5-pro"
+retrieved_at = 2026-03-18

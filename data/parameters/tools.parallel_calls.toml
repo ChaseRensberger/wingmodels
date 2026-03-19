@@ -1,0 +1,5 @@
+id = "tools.parallel_calls"
+name = "Parallel Tool Calls"
+description = "Allow parallel tool invocations"
+type = "boolean"
+category = "tools"

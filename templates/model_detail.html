@@ -1,0 +1,180 @@
+{{define "modelDetail"}}
+<div>
+    <!-- Breadcrumb -->
+    <div class="mb-4 text-xs text-muted-foreground">
+        <a href="/" class="hover:text-foreground transition-colors">models</a>
+        <span class="text-muted-foreground/30"> / </span>
+        <a href="/providers/{{.Provider.ID}}" class="hover:text-foreground transition-colors">{{.Provider.DisplayName}}</a>
+        <span class="text-muted-foreground/30"> / </span>
+        <span class="text-foreground">{{.ProviderModel.DisplayName}}</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="model-title text-xl font-bold text-foreground mb-1">{{.ProviderModel.DisplayName}}</h1>
+    <div class="text-xs text-muted-foreground mb-6">{{.ProviderModel.ID}}</div>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <!-- Left column -->
+        <div class="space-y-4">
+            <!-- Pricing -->
+            {{if .ProviderModel.Pricing}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Pricing</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">input</span>
+                        <span class="text-foreground">{{formatPrice .ProviderModel.Pricing.InputPerMillion}} / 1M tokens</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">output</span>
+                        <span class="text-foreground">{{formatPrice .ProviderModel.Pricing.OutputPerMillion}} / 1M tokens</span>
+                    </div>
+                    {{if .ProviderModel.Pricing.CacheReadPerMillion}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">cache read</span>
+                        <span class="text-foreground">{{formatPrice .ProviderModel.Pricing.CacheReadPerMillion}} / 1M tokens</span>
+                    </div>
+                    {{end}}
+                    {{if .ProviderModel.Pricing.CacheWritePerMillion}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">cache write</span>
+                        <span class="text-foreground">{{formatPrice .ProviderModel.Pricing.CacheWritePerMillion}} / 1M tokens</span>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Limits -->
+            {{if .ProviderModel.Limits}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Limits</h2>
+                <div class="space-y-2 text-sm">
+                    {{if .ProviderModel.Limits.ContextWindow}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">context window</span>
+                        <span class="text-foreground">{{formatTokens .ProviderModel.Limits.ContextWindow}} tokens</span>
+                    </div>
+                    {{end}}
+                    {{if .ProviderModel.Limits.MaxOutputTokens}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">max output</span>
+                        <span class="text-foreground">{{formatTokens .ProviderModel.Limits.MaxOutputTokens}} tokens</span>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Lab Model Info -->
+            {{if .LabModel}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Lab Model</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">lab</span>
+                        <span class="text-foreground">{{.Lab.DisplayName}}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">model</span>
+                        <span class="text-foreground">{{.LabModel.DisplayName}}</span>
+                    </div>
+                    {{if .LabModel.Family}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">family</span>
+                        <span class="text-foreground">{{.LabModel.Family}}</span>
+                    </div>
+                    {{end}}
+                    {{if .LabModel.ReleaseDate}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">release date</span>
+                        <span class="text-foreground">{{.LabModel.ReleaseDate}}</span>
+                    </div>
+                    {{end}}
+                    {{if .LabModel.KnowledgeCutoff}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">knowledge cutoff</span>
+                        <span class="text-foreground">{{.LabModel.KnowledgeCutoff}}</span>
+                    </div>
+                    {{end}}
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">open weights</span>
+                        <span class="text-foreground">{{if .LabModel.OpenWeights}}yes{{else}}no{{end}}</span>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+
+        <!-- Right column -->
+        <div class="space-y-4">
+            <!-- Capabilities -->
+            {{if .ProviderModel.Capabilities}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Capabilities</h2>
+                <div class="flex flex-wrap gap-1.5">
+                    {{range .ProviderModel.Capabilities}}
+                    <span class="rounded-sm border border-border bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">
+                        {{.ID}}{{if .Version}} {{.Version}}{{end}}
+                    </span>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Interface Profiles -->
+            {{if .ProviderModel.InterfaceProfiles}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Interface Profiles</h2>
+                <div class="space-y-1">
+                    {{range .ProviderModel.InterfaceProfiles}}
+                    <div class="text-sm text-foreground">{{.}}</div>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Supported Parameters -->
+            {{if .ProviderModel.SupportedParameters}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Supported Parameters</h2>
+                <div class="flex flex-wrap gap-1.5">
+                    {{range .ProviderModel.SupportedParameters}}
+                    <span class="rounded-sm border border-border bg-secondary px-2 py-0.5 text-xs text-muted-foreground">{{.}}</span>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Modalities -->
+            {{if .ProviderModel.Modalities}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Modalities</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">input</span>
+                        <span class="text-foreground">{{join .ProviderModel.Modalities.Input ", "}}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted-foreground">output</span>
+                        <span class="text-foreground">{{join .ProviderModel.Modalities.Output ", "}}</span>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Sources -->
+            {{if .ProviderModel.Sources}}
+            <div class="rounded-sm border border-border bg-card p-4">
+                <h2 class="text-xs font-semibold text-muted-foreground uppercase mb-3">Sources</h2>
+                <div class="space-y-1">
+                    {{range .ProviderModel.Sources}}
+                    <a href="{{.URL}}" target="_blank" rel="noopener" class="block text-xs text-primary hover:underline">{{.Label}}</a>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+</div>
+{{end}}

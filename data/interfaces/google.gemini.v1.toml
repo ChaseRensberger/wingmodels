@@ -1,0 +1,16 @@
+id = "google.gemini.v1"
+family = "google.gemini"
+version = "v1"
+description = "Google Gemini API surface"
+
+[canonical_mappings]
+"limits.max_output_tokens" = "maxOutputTokens"
+"sampling.temperature" = "temperature"
+"sampling.top_p" = "topP"
+"sampling.top_k" = "topK"
+"limits.stop_sequences" = "stopSequences"
+
+[[sources]]
+label = "Google Gemini API"
+url = "https://ai.google.dev/api/generate-content"
+retrieved_at = "2026-03-06"
