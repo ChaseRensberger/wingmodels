@@ -16,6 +16,7 @@ RUN go mod download
 COPY . .
 COPY --from=css /app/output.css ./output.css
 RUN CGO_ENABLED=0 go build -o wingmodels ./cmd/wingmodels
+RUN ./wingmodels compile
 
 # Stage 3: Runtime
 FROM gcr.io/distroless/static-debian12
