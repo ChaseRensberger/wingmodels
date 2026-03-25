@@ -119,6 +119,62 @@ id = "badlab"
 	}
 }
 
+func TestCompileDraftExclusion(t *testing.T) {
+	dataDir := t.TempDir()
+
+	// Create a lab and two lab models: one draft, one not.
+	labDir := filepath.Join(dataDir, "labs", "testlab")
+	mkdirAll(t, filepath.Join(labDir, "models"))
+	writeFile(t, filepath.Join(labDir, "lab.toml"), `
+id = "testlab"
+display_name = "Test Lab"
+`)
+	writeFile(t, filepath.Join(labDir, "models", "m1.toml"), `
+id = "m1"
+lab_id = "testlab"
+display_name = "Model One"
+`)
+	writeFile(t, filepath.Join(labDir, "models", "m2.toml"), `
+draft = true
+id = "m2"
+lab_id = "testlab"
+display_name = "Draft Model"
+`)
+
+	// Create a provider with a provider model for m1 only (m2 is draft).
+	provDir := filepath.Join(dataDir, "providers", "testprov")
+	mkdirAll(t, filepath.Join(provDir, "models"))
+	writeFile(t, filepath.Join(provDir, "provider.toml"), `
+id = "testprov"
+display_name = "Test Provider"
+`)
+	writeFile(t, filepath.Join(provDir, "models", "m1.toml"), `
+id = "testprov/m1"
+display_name = "Model One via TestProv"
+`)
+
+	buildDir := t.TempDir()
+	if err := Compile(dataDir, buildDir); err != nil {
+		t.Fatalf("Compile failed: %v", err)
+	}
+
+	// Read api.json and verify the draft model is excluded.
+	data, err := os.ReadFile(filepath.Join(buildDir, "api.json"))
+	if err != nil {
+		t.Fatalf("reading api.json: %v", err)
+	}
+
+	var snap models.Snapshot
+	if err := json.Unmarshal(data, &snap); err != nil {
+		t.Fatalf("api.json is not valid JSON: %v", err)
+	}
+
+	assertCount(t, "LabModels", len(snap.LabModels), 1)
+	if snap.LabModels[0].ID != "m1" {
+		t.Errorf("expected lab model ID %q, got %q", "m1", snap.LabModels[0].ID)
+	}
+}
+
 // --- helpers ---
 
 func assertCount(t *testing.T, name string, got, want int) {

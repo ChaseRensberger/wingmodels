@@ -66,6 +66,72 @@ knowledge_cutoff = 2023-09
 	}
 }
 
+func TestLoadDraftFiltering(t *testing.T) {
+	dataDir := t.TempDir()
+
+	// Create two labs: one draft, one not.
+	draftLabDir := filepath.Join(dataDir, "labs", "draftlab")
+	normalLabDir := filepath.Join(dataDir, "labs", "normallab")
+	if err := os.MkdirAll(draftLabDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(normalLabDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	writeFile(t, filepath.Join(draftLabDir, "lab.toml"), `
+draft = true
+id = "draftlab"
+display_name = "Draft Lab"
+`)
+
+	writeFile(t, filepath.Join(normalLabDir, "lab.toml"), `
+id = "normallab"
+display_name = "Normal Lab"
+`)
+
+	result, err := Load(dataDir)
+	if err != nil {
+		t.Fatalf("Load failed: %v", err)
+	}
+
+	// Only the non-draft lab should be loaded.
+	if len(result.Labs) != 1 {
+		t.Fatalf("expected 1 lab, got %d", len(result.Labs))
+	}
+	if result.Labs[0].ID != "normallab" {
+		t.Errorf("expected lab ID %q, got %q", "normallab", result.Labs[0].ID)
+	}
+}
+
+func TestLoadDraftFalseIncluded(t *testing.T) {
+	dataDir := t.TempDir()
+
+	labDir := filepath.Join(dataDir, "labs", "explicitnondraft")
+	if err := os.MkdirAll(labDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	// draft = false should behave like no draft field — entity is included.
+	writeFile(t, filepath.Join(labDir, "lab.toml"), `
+draft = false
+id = "explicitnondraft"
+display_name = "Explicit Non-Draft Lab"
+`)
+
+	result, err := Load(dataDir)
+	if err != nil {
+		t.Fatalf("Load failed: %v", err)
+	}
+
+	if len(result.Labs) != 1 {
+		t.Fatalf("expected 1 lab, got %d", len(result.Labs))
+	}
+	if result.Labs[0].ID != "explicitnondraft" {
+		t.Errorf("expected lab ID %q, got %q", "explicitnondraft", result.Labs[0].ID)
+	}
+}
+
 // --- helpers ---
 
 func assertCount(t *testing.T, name string, got, want int) {

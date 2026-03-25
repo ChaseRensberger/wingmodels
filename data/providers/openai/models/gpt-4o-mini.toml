@@ -1,3 +1,4 @@
+draft = true
 id = "openai/gpt-4o-mini"
 display_name = "GPT-4o mini via OpenAI"
 interface_profiles = ["openai.responses.v1", "openai.chatcompletions.v1"]

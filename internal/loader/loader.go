@@ -125,6 +125,13 @@ func loadFile(path string, entityType string, result *LoadResult) error {
 	// Recursively convert time.Time values to YYYY-MM-DD strings.
 	convertDates(m)
 
+	// Skip draft entities — they are excluded from the compiled output.
+	if draft, ok := m["draft"].(bool); ok && draft {
+		fmt.Printf("  skipping draft: %s\n", path)
+		return nil
+	}
+	delete(m, "draft") // remove draft key so it doesn't leak into typed structs
+
 	// Marshal the cleaned map to JSON, then unmarshal into the typed struct.
 	jsonBytes, err := json.Marshal(m)
 	if err != nil {
